@@ -28,13 +28,17 @@
               <input
                 type="text"
                 id="username"
-                class="form-control"
+                class="form-control input"
                 placeholder="Enter github username"
               />
-              <button class="btn btn-primary" onclick="getRepositories()">
+              <button
+                class="btn btn-primary inp-btn"
+                onclick="getRepositories()"
+              >
                 Get Repositories
               </button>
             </div>
+            <div id="error"></div>
           </div>
         </div>
       </div>

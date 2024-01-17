@@ -86,7 +86,8 @@ async function displayUserDetails(username) {
 
 // Function to get repositories
 async function getRepositories() {
-  var username = document.getElementById("username").value;
+  var usernameInput = document.getElementById("username");
+  var username = usernameInput.value;
   // const perPage = document.getElementById("perPage").value || 10;
   const perPage = 10;
 
@@ -99,7 +100,38 @@ async function getRepositories() {
   document.getElementById("repositories").innerHTML = "";
   document.getElementById("pagination").innerHTML = "";
 
+  if (username.trim() === "") {
+    // Add red border to the input field
+    usernameInput.style.border = "1px solid red";
+
+    // Hide loader
+    document.getElementById("loader").style.display = "none";
+
+    // Display error message
+    document.getElementById(
+      "repositories"
+    ).innerHTML = `<li class="list-group-item text-danger">Username is required</li>`;
+    return;
+  } else {
+    // Reset the border to its default state
+    usernameInput.style.border = "";
+  }
+
   try {
+    // Fetch user details from GitHub API to check if the user exists
+    // const userResponse = await fetch(`${apiUrl}/users/${username}`);
+    // if (userResponse.status === 404) {
+    //   // User does not exist
+    //   // Hide loader
+    //   document.getElementById("loader").style.display = "none";
+
+    //   // Display error message
+    //   document.getElementById(
+    //     "repositories"
+    //   ).innerHTML = `<li class="list-group-item text-danger">No such GitHub username exists</li>`;
+    //   return;
+    // }
+
     // Fetch repositories from GitHub API
 
     const response = await fetch(
@@ -108,22 +140,30 @@ async function getRepositories() {
     const data = await response.json();
     console.log(data);
 
-    // Display user details
-    displayUserDetails(username);
+    if (data.message === "Not Found") {
+      document.getElementById(
+        "error"
+      ).innerHTML = `<p class="text-danger text-center">No such GitHub username exists!</p>`;
+      document.getElementById("loader").style.display = "none";
+      return;
+    } else {
+      // Display user details
+      displayUserDetails(username);
 
-    // Hide loader
-    document.getElementById("loader").style.display = "none";
+      // Hide loader
+      document.getElementById("loader").style.display = "none";
 
-    // Display repositories
-    displayRepositories(data);
+      // Display repositories
+      displayRepositories(data);
 
-    // Display pagination
-    displayPagination(response.headers.get("Link"));
+      // Display pagination
+      displayPagination(response.headers.get("Link"));
 
-    localStorage.setItem("viewState", "result");
+      localStorage.setItem("viewState", "result");
 
-    document.getElementById("input-container").style.display = "none";
-    document.getElementById("result-container").style.display = "block";
+      document.getElementById("input-container").style.display = "none";
+      document.getElementById("result-container").style.display = "block";
+    }
   } catch (error) {
     // Hide loader
     document.getElementById("loader").style.display = "none";
