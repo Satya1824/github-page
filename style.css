@@ -1,0 +1,113 @@
+html,
+body {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.repos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.repo {
+    padding: 10px;
+}
+
+.lang {
+    background: rgb(43, 166, 255);
+    color: white;
+    border-radius: .2rem;
+}
+
+.img-cnt {
+    max-height: 200px !important;
+    max-width: 200px !important;
+    border-radius: 50%;
+}
+
+.img-cnt img {
+    height: 100%;
+    width: 100%;
+}
+
+#github_link a {
+    text-decoration: none;
+    color: black;
+}
+
+.btns-wrap {
+    border-top: 1px solid rgb(112, 112, 112);
+    border-bottom: 1px solid rgb(112, 112, 112);
+    border-right: .5px solid rgb(112, 112, 112);
+    border-left: .5px solid rgb(112, 112, 112);
+    border-top-right-radius: .2rem;
+    border-top-left-radius: .2rem;
+    border-bottom-right-radius: .2rem;
+    border-bottom-left-radius: .2rem;
+    overflow: hidden;
+}
+
+.page-btn {
+    border-top: 0;
+    border-bottom: 0;
+    border-right: .5px solid rgb(112, 112, 112);
+    border-left: .5px solid rgb(112, 112, 112);
+    outline: 0;
+    background: transparent;
+}
+
+.page-btn:active {
+    box-shadow: none !important;
+}
+
+.page-btn a {
+    text-decoration: none;
+    padding: 10px;
+    color: rgb(43, 166, 255);
+}
+
+.active {
+    background: rgb(43, 166, 255) !important;
+    color: white !important;
+}
+
+#next-btn {
+    /* padding: 0; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+    background: transparent;
+    color: rgb(43, 166, 255);
+    border-right: .5px solid rgb(112, 112, 112);
+    border-left: .5px solid rgb(112, 112, 112);
+    height: 100%;
+}
+
+#prev-btn {
+    /* padding: 0; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+    background: transparent;
+    color: rgb(43, 166, 255);
+    border-right: .5px solid rgb(112, 112, 112);
+    border-left: .5px solid rgb(112, 112, 112);
+    height: 100%;
+}
+
+@media(max-width: 991px) {
+    .repos {
+        grid-template-columns: 1fr !important;
+    }
+
+    .container {
+        margin-top: 10px !important;
+    }
+
+    .repo {
+        width: 100% !important;
+    }
+}

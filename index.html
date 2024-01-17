@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <title>Assignment</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div id="input-container">
+        <h1 class="text-center">GitHub Repositories</h1>
+
+        <div class="row mt-4">
+          <div class="col-md-6 offset-md-3">
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                id="username"
+                class="form-control"
+                placeholder="Enter github username"
+              />
+              <button class="btn btn-primary" onclick="getRepositories()">
+                Get Repositories
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div id="result-container">
+            <div class="row align-items-center p-4">
+              <div class="col-3 border border-secondary-subtle img-cnt p-0">
+                <img id="profile" class="rounded-circle" src="" alt="Image" />
+              </div>
+              <div class="col-9" id="profile-details"></div>
+            </div>
+            <div id="github_link" class="mb-5"></div>
+            <div id="no-repo"></div>
+            <div id="repositories" class="repos">
+              <!-- Repository items will be shown here -->
+            </div>
+          </div>
+
+          <div id="loader" class="text-center" style="display: none">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+
+          <div class="my-5 d-flex justify-content-center w-100">
+            <div id="pagination" class="btns-wrap d-flex align-items-center">
+              <!-- Pagination links will be shown here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
