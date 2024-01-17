@@ -208,7 +208,7 @@ async function displayRepositories(repositories) {
     const listItem = `<div class="repo border border-secondary">
                     <h5>${repo.name}</h5>
                     ${descriptionHtml}
-                    <div class="d-flex gap-2">${langs}</div>
+                    <div class="d-flex flex-wrap gap-2">${langs}</div>
                   </div>`;
     repositoriesList.insertAdjacentHTML("beforeend", listItem);
   });
