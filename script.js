@@ -238,7 +238,7 @@ async function displayRepositories(repositories) {
     const languages = languagesArray[index]; // Get the language names for the current repository
 
     const langs = languages
-      .map((language) => `<div class="lang p-1">${language}</div>`)
+      .map((language) => `<div class="lang py-1 px-2">${language}</div>`)
       .join(" ");
 
     const descriptionHtml = repo.description
