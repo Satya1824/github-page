@@ -45,7 +45,7 @@ Follow these steps to run the project locally:
 
 #5. **Enter GitHub Username:**
 
-    In the opened web page, you'll see an input field labeled "Enter GitHub username." Type a valid GitHub username into this field.
+In the opened web page, you'll see an input field labeled "Enter GitHub username." Type a valid GitHub username into this field.
 
 6. **Optional: Set Repositories Per Page:**
 
@@ -66,6 +66,4 @@ Follow these steps to run the project locally:
    - The project uses the GitHub API to retrieve user information and repositories.
    - Bootstrap is used for styling and layout.
 
-```
-
-```
+##
