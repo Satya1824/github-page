@@ -1,6 +1,6 @@
 # GitHub Repositories Viewer
 
-This project is a simple web application that allows users to enter a GitHub username, fetch the user's details and repositories from the GitHub API, and display the results along with pagination. The application is built using HTML, CSS, Bootstrap and JavaScript, and it utilizes the GitHub API to retrieve user information and repositories.
+This project is a simple web application that allows users to enter a GitHub username, fetch the user's details and repositories from the GitHub API, and display the results along with pagination. The application is built using HTML, CSS and JavaScript, and it utilizes the GitHub API to retrieve user information and repositories.
 
 ## Prerequisites
 
@@ -22,6 +22,11 @@ Follow these steps to run the project locally:
    ```
 
 ## 2. Open Project Folder:
+
+Navigate to the project folder using the `cd` command:
+
+````bash
+cd <project-folder>
 
 Replace `<project-folder>` with the name of the project folder.
 
@@ -59,4 +64,4 @@ Click the "Get Repositories" button to fetch the user's repositories from GitHub
 - The project uses the GitHub API to retrieve user information and repositories.
 - Bootstrap is used for styling and layout.
 
-```
+````
