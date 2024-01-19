@@ -43,9 +43,9 @@ Follow these steps to run the project locally:
 
    Open the `index.html` file in your web browser. You can do this by right-clicking on the file and selecting "Open with" your browser of choice.
 
-#5. **Enter GitHub Username:**
+5. **Enter GitHub Username:**
 
-In the opened web page, you'll see an input field labeled "Enter GitHub username." Type a valid GitHub username into this field.
+   In the opened web page, you'll see an input field labeled "Enter GitHub username." Type a valid GitHub username into this field.
 
 6. **Optional: Set Repositories Per Page:**
 
