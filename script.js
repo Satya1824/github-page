@@ -1,6 +1,7 @@
-// GitHub API base URL
 const apiUrl = "https://api.github.com";
 let currentPage = 1;
+
+document.getElementById("perPage").value = 10;
 
 document.addEventListener("DOMContentLoaded", function () {
   // Remove the view state from localStorage on page load
@@ -62,16 +63,6 @@ async function displayUserDetails(username) {
 
     // Display github link
 
-    // const link = userData.html_url
-    //   ? `<a class="d-flex align-items-center gap-2" href=${userData.html_url} target="_blank">
-    //             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
-    //             <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9q-.13 0-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
-    //             <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4 4 0 0 1-.82 1H12a3 3 0 1 0 0-6z"/>
-    //             </svg>
-    //             <span>${userData.html_url}</span>
-    //         </a>`
-    //   : "";
-
     githubLink.innerHTML = `<a class="d-flex align-items-center gap-2" href=${userData.html_url} target="_blank">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">
                 <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9q-.13 0-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>
@@ -88,10 +79,15 @@ async function displayUserDetails(username) {
 async function getRepositories() {
   var usernameInput = document.getElementById("username");
   var username = usernameInput.value;
-  // const perPage = document.getElementById("perPage").value || 10;
-  const perPage = 10;
+  const perPage = document.getElementById("perPage").value || 10;
+  console.log(perPage);
 
-  console.log(username);
+  if (perPage < 1 || perPage > 100) {
+    alert("Please enter a number between 1 and 100");
+    return;
+  }
+
+  // console.log(username);
 
   // Show loader
   document.getElementById("loader").style.display = "block";
@@ -118,22 +114,6 @@ async function getRepositories() {
   }
 
   try {
-    // Fetch user details from GitHub API to check if the user exists
-    // const userResponse = await fetch(`${apiUrl}/users/${username}`);
-    // if (userResponse.status === 404) {
-    //   // User does not exist
-    //   // Hide loader
-    //   document.getElementById("loader").style.display = "none";
-
-    //   // Display error message
-    //   document.getElementById(
-    //     "repositories"
-    //   ).innerHTML = `<li class="list-group-item text-danger">No such GitHub username exists</li>`;
-    //   return;
-    // }
-
-    // Fetch repositories from GitHub API
-
     const response = await fetch(
       `${apiUrl}/users/${username}/repos?per_page=${perPage}`
     );
@@ -175,21 +155,6 @@ async function getRepositories() {
   }
 }
 
-//   document.addEventListener("DOMContentLoaded", function () {
-//     // Check sessionStorage for the viewState
-//     const viewState = localStorage.getItem("viewState");
-
-//     // If the result view was set, hide input-container and show result-container
-//     if (viewState === "result") {
-//       document.getElementById("input-container").style.display = "none";
-//       document.getElementById("result-container").style.display = "block";
-//     } else {
-//       // If the viewState is not set or is not "result", show the input-container
-//       document.getElementById("input-container").style.display = "block";
-//       document.getElementById("result-container").style.display = "none";
-//     }
-//   });
-
 async function getLanguages(url) {
   try {
     const response = await fetch(url);
@@ -206,7 +171,7 @@ async function displayRepositories(repositories) {
   const repositoriesList = document.getElementById("repositories");
   const noRepo = document.getElementById("no-repo");
 
-  // Define a function to fetch languages asynchronously
+  // Define a function to fetch languages
   async function fetchLanguages(repo) {
     const lang_link = repo.languages_url;
     if (lang_link) {
@@ -217,14 +182,13 @@ async function displayRepositories(repositories) {
         console.error(
           `Error fetching languages for ${repo.name}: ${error.message}`
         );
-        return []; // Return an empty array in case of an error
+        return [];
       }
     } else {
-      return []; // Return an empty array if there is no language link
+      return [];
     }
   }
 
-  // Use Promise.all to wait for all async operations to complete
   const languagesArray = await Promise.all(repositories.map(fetchLanguages));
 
   console.log(repositories.length);
@@ -260,7 +224,7 @@ function parseLinkHeader(linkHeader) {
 
   links.forEach((link) => {
     const [url, rel] = link.split("; ");
-    const cleanUrl = url.trim().slice(1, -1); // Remove '<' and '>'
+    const cleanUrl = url.trim().slice(1, -1);
     const cleanRel = rel.trim().slice(5);
 
     linkObject[cleanRel] = cleanUrl;
@@ -269,26 +233,68 @@ function parseLinkHeader(linkHeader) {
   return linkObject;
 }
 
+function extractLastLink(linkHeader) {
+  const regex = /<([^>]+)>;\s*rel="last"/;
+  const match = linkHeader.match(regex);
+
+  if (match && match[1]) {
+    return match[1];
+  }
+
+  return null;
+}
+
+function extractLastLink(linkHeader) {
+  const regex = /<([^>]+)>;\s*rel="last"/;
+  const match = linkHeader.match(regex);
+
+  if (match && match[1]) {
+    return match[1];
+  }
+
+  return null;
+}
+
+function extractPrevLink(linkHeader) {
+  const regex = /<([^>]+)>;\s*rel="prev"/;
+  const match = linkHeader.match(regex);
+
+  if (match && match[1]) {
+    return match[1];
+  }
+
+  return null;
+}
+
 function displayPagination(linkHeader) {
   const pagination = document.getElementById("pagination");
-  pagination.innerHTML = ""; // Clear previous pagination
+  pagination.innerHTML = "";
 
   if (!linkHeader) return;
 
+  console.log(linkHeader);
+
   const links = parseLinkHeader(linkHeader);
-  const maxButtons = 9; // Maximum number of pagination buttons
+  // let maxButtons = 9;
+  const lastLink = extractLastLink(linkHeader);
+
+  const prevLink = extractPrevLink(linkHeader);
 
   let startPage = 1;
-  let endPage = maxButtons;
+  let endPage = lastLink
+    ? parseInt(new URL(lastLink).searchParams.get("page"))
+    : parseInt(new URL(prevLink).searchParams.get("page")) + 1;
+  console.log(endPage);
 
-  if (links.last) {
-    const lastPage = new URL(links.last).searchParams.get("page");
-    startPage = Math.max(1, lastPage - maxButtons + 1);
-    endPage = lastPage;
-  }
+  console.log(links);
 
+  console.log(lastLink);
+
+  let buttonWidth = 30;
   let numberBtns = document.createElement("div");
-  //   let currentPage = 1;
+  numberBtns.classList.add("num-btns");
+  numberBtns.style.maxWidth =
+    endPage <= 9 ? `${buttonWidth * endPage}px` : `${buttonWidth * 9}px`;
 
   for (let i = startPage; i <= endPage; i++) {
     const activeClass = i === startPage ? "active" : "";
@@ -296,11 +302,10 @@ function displayPagination(linkHeader) {
                                       <a class="${activeClass}" href="javascript:void(0);" data-page="${i}" onclick="getRepositoriesPage(${i})">${i}</a>
                                   </button>`;
     numberBtns.insertAdjacentHTML("beforeend", paginationItem);
-    // currentPage = i;
   }
 
   const pageBtns = `<button id="prev-btn" onclick="getRepositoriesPage(${
-    currentPage - 1
+    currentPage === 1 ? currentPage : currentPage - 1
   })">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -317,7 +322,7 @@ function displayPagination(linkHeader) {
             </button>
             ${numberBtns.outerHTML}
             <button id="next-btn" onclick="getRepositoriesPage(${
-              currentPage + 1
+              currentPage === endPage ? currentPage : currentPage + 1
             })">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -340,9 +345,7 @@ function displayPagination(linkHeader) {
 // Function to handle pagination
 async function getRepositoriesPage(page) {
   const username = document.getElementById("username").value;
-  const perPage =
-    //   document.getElementById("perPage").value ||
-    10;
+  const perPage = document.getElementById("perPage").value;
 
   currentPage = page;
 

@@ -55,6 +55,10 @@ body {
     border-left: .5px solid rgb(112, 112, 112);
     outline: 0;
     background: transparent;
+    /* width: 35px !important; */
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
 }
 
 .page-btn:active {
@@ -62,8 +66,9 @@ body {
 }
 
 .page-btn a {
-    text-decoration: none;
+    /* width: 100%; */
     padding: 10px;
+    text-decoration: none;
     color: rgb(43, 166, 255);
 }
 
@@ -118,4 +123,18 @@ body {
     .repo {
         width: 100% !important;
     }
+}
+
+.num-btns {
+    /* max-width: 20dvw !important; */
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+.num-btns::-webkit-scrollbar {
+    display: none !important;
 }
