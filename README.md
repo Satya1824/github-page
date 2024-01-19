@@ -21,12 +21,13 @@ Follow these steps to run the project locally:
    git clone https://github.com/Satya1824/github-page.git
    ```
 
-## 2. Open Project Folder:
+## Open Project Folder:
 
 Navigate to the project folder using the `cd` command:
 
-````bash
-cd <project-folder>
+    ```bash
+    cd <project-folder>
+    ```
 
 Replace `<project-folder>` with the name of the project folder.
 
@@ -64,4 +65,4 @@ Click the "Get Repositories" button to fetch the user's repositories from GitHub
 - The project uses the GitHub API to retrieve user information and repositories.
 - Bootstrap is used for styling and layout.
 
-````
+```
